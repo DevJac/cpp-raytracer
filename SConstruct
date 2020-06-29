@@ -1,20 +1,5 @@
-CCFLAGS = [
-    '-pedantic',
-    '-Werror',
-    '-Wall',
-    '-Wextra',
-    '-Wconversion',
-    '-Wdouble-promotion',
-    '-Wformat=2',
-    '-Wformat-overflow',
-    '-Wformat-truncation',
-    '-Wshadow',
-    '-Wundef',
-    '-fno-common',
-    '-fstack-protector-all',
-    '-g3',
-    '-Og']
-
+CCFLAGS = [flag.strip() for flag in open('compile_flags.txt').readlines()]
 VariantDir('build', 'src', duplicate=0)
-env = Environment(CCFLAGS=' '.join(CCFLAGS))
+env = Environment(CXX='clang++',
+                  CCFLAGS=' '.join(CCFLAGS))
 env.Program('build/main.cpp')
