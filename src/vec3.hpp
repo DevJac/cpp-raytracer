@@ -1,3 +1,4 @@
+#include <gtest/gtest.h>
 #include <iostream>
 
 class vec3 {
@@ -48,3 +49,34 @@ public:
     e[2] /= scalar;
   }
 };
+
+TEST(vec3, accessors) {
+  const vec3 v{1, 2, 3};
+  EXPECT_EQ(v.x(), 1);
+  EXPECT_EQ(v.y(), 2);
+  EXPECT_EQ(v.z(), 3);
+  EXPECT_EQ(v[0], 1);
+  EXPECT_EQ(v[1], 2);
+  EXPECT_EQ(v[2], 3);
+  EXPECT_EQ(v.at(0), 1);
+  EXPECT_EQ(v.at(1), 2);
+  EXPECT_EQ(v.at(2), 3);
+  bool caught_out_of_range = false;
+  try {
+    v.at(3);
+  } catch (std::out_of_range &_err) {
+    caught_out_of_range = true;
+  }
+  EXPECT_TRUE(caught_out_of_range);
+}
+
+TEST(vec3, negation) {
+  const vec3 vp{1, 2, 3};
+  const vec3 vn{-vp};
+  EXPECT_EQ(vp.x(), 1);
+  EXPECT_EQ(vp.y(), 2);
+  EXPECT_EQ(vp.z(), 3);
+  EXPECT_EQ(vn.x(), -1);
+  EXPECT_EQ(vn.y(), -2);
+  EXPECT_EQ(vn.z(), -3);
+}

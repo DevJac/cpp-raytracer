@@ -22,11 +22,4 @@ int main() {
     }
   }
   std::cerr << "Done.\n";
-
-  vec3 v1{1, 2, 3};
-  vec3 v2(1, 2, 3);
-  vec3 v3 = -v2;
-  std::cout << v1.at(0) << ' ' << v1.at(1) << ' ' << v1.at(2) << std::endl;
-  std::cout << v2.at(0) << ' ' << v2.at(1) << ' ' << v2.at(2) << std::endl;
-  std::cout << v3.at(0) << ' ' << v3.at(1) << ' ' << v3.at(2) << std::endl;
 }
