@@ -153,3 +153,10 @@ TEST(vec3, inplace_math) {
   v -= vec3(1, 2, 3);
   EXPECT_EQ(v, vec3(10, 10, 10));
 }
+
+TEST(vec3, ostream_format) {
+  const vec3 v{1, 2, 3};
+  std::ostringstream oss;
+  oss << v;
+  EXPECT_EQ(oss.str(), "vec3(1, 2, 3)");
+}
