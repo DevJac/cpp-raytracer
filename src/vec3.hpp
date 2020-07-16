@@ -1,3 +1,4 @@
+#include <cmath>
 #include <gtest/gtest.h>
 #include <iostream>
 
@@ -48,6 +49,10 @@ public:
     e[1] /= scalar;
     e[2] /= scalar;
   }
+
+  float length() const { return std::sqrt(length_squared()); }
+
+  float length_squared() const { return x() * x() + y() * y() + z() * z(); }
 };
 
 std::ostream &operator<<(std::ostream &out, const vec3 &v) {
@@ -159,4 +164,12 @@ TEST(vec3, ostream_format) {
   std::ostringstream oss;
   oss << v;
   EXPECT_EQ(oss.str(), "vec3(1, 2, 3)");
+}
+
+TEST(vec3, length) {
+  const vec3 v{2, 3, 5};
+  const auto v_length = v.length();
+  const auto v_length_squared = v.length_squared();
+  EXPECT_FLOAT_EQ(v_length, 6.1644139);
+  EXPECT_EQ(v_length_squared, 38);
 }
