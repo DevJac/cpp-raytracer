@@ -112,6 +112,15 @@ vec3 operator/(const vec3 &v, float t) {
   };
 }
 
+float dot(const vec3 &u, const vec3 &v) {
+  return u.x() * v.x() + u.y() * v.y() + u.z() * v.z();
+}
+
+vec3 cross(const vec3 &u, const vec3 &v) {
+  return vec3{u.y() * v.z() - u.z() * v.y(), u.z() * v.x() - u.x() * v.z(),
+              u.x() * v.y() - u.y() * v.x()};
+}
+
 TEST(vec3, accessors) {
   const vec3 v{1, 2, 3};
   EXPECT_EQ(v.x(), 1);
@@ -185,4 +194,10 @@ TEST(vec3, unit) {
   const vec3 v2{2, 3, 5};
   const float v2_length = v2.length();
   EXPECT_EQ(v2.unit(), vec3(2 / v2_length, 3 / v2_length, 5 / v2_length));
+}
+
+TEST(vec3, dot) { EXPECT_EQ(dot(vec3(1, 2, 3), vec3(3, 4, 5)), 26); }
+
+TEST(vec3, cross) {
+  EXPECT_EQ(cross(vec3(1, 2, 3), vec3(4, 3, 2)), vec3(-5, 10, -5));
 }
