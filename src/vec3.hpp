@@ -2,6 +2,9 @@
 #include <gtest/gtest.h>
 #include <iostream>
 
+class vec3;
+vec3 operator/(const vec3 &, float);
+
 class vec3 {
 private:
   float e[3];
@@ -53,6 +56,8 @@ public:
   float length() const { return std::sqrt(length_squared()); }
 
   float length_squared() const { return x() * x() + y() * y() + z() * z(); }
+
+  vec3 unit() const { return (*this) / this->length(); }
 };
 
 std::ostream &operator<<(std::ostream &out, const vec3 &v) {
@@ -168,8 +173,16 @@ TEST(vec3, ostream_format) {
 
 TEST(vec3, length) {
   const vec3 v{2, 3, 5};
-  const auto v_length = v.length();
-  const auto v_length_squared = v.length_squared();
+  const float v_length = v.length();
+  const float v_length_squared = v.length_squared();
   EXPECT_FLOAT_EQ(v_length, 6.1644139);
   EXPECT_EQ(v_length_squared, 38);
+}
+
+TEST(vec3, unit) {
+  const vec3 v1{2, 0, 0};
+  EXPECT_EQ(v1.unit(), vec3(1, 0, 0));
+  const vec3 v2{2, 3, 5};
+  const float v2_length = v2.length();
+  EXPECT_EQ(v2.unit(), vec3(2 / v2_length, 3 / v2_length, 5 / v2_length));
 }
