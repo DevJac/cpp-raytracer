@@ -1,4 +1,4 @@
-#include "vec3.hpp"
+#include "ray.hpp"
 
 void write_color(std::ostream &out, const vec3 &pixel_color) {
   out << static_cast<int>(pixel_color.x() * 255) << ' '
